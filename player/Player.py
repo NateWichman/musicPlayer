@@ -4,6 +4,8 @@ import pyaudio
 import wave
 import time
 
+import exceptions
+
 class Player:
     def __init__(self):
         self.currentSong = "Nothing playing."
@@ -24,7 +26,9 @@ class Player:
     def play(self, track):
         self.paused = False
         self.currentSong = track
+
         self.wf = wave.open(track, 'rb')
+
 
         # instantiate PyAudio (1)
         self.p = pyaudio.PyAudio()
@@ -48,5 +52,5 @@ class Player:
 
     def callback(self, in_data, frame_count, time_info, status):
         data = self.wf.readframes(frame_count)
-        return (data, pyaudio.paContinue)
+        return (data, pyaudio.paContinue) 
 
